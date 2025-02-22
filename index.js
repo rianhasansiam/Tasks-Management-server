@@ -43,14 +43,11 @@ async function run() {
     // POST /tasks - Add a new task
     app.post('/tasks', async (req, res) => {
       const taskData = req.body;
-console.log(taskData)
-
-      
+      //  console.log(taskData)
 
 
-
-      const newTask = { taskData, date: new Date() };
-      const result = await allTasksCollection.insertOne(newTask);
+    //   const newTask = { taskData, date: new Date() };
+      const result = await allTasksCollection.insertOne(taskData);
 
       res.status(201).send({ message: "Task added successfully!", taskId: result.insertedId });
     });
@@ -61,14 +58,43 @@ console.log(taskData)
 
 
 
-    // GET /tasks - Retrieve all tasks for the logged-in user
-    app.get('/tasks', async (req, res) => {
-      const { userId } = req.query;
-      if (!userId) {
-        return res.status(400).send({ message: "User ID is required." });
-      }
 
-      const tasks = await allTasksCollection.find({ userId }).toArray();
+
+
+
+
+
+
+
+
+    // GET /tasks - Retrieve all tasks for the logged-in user
+    app.get('/tasksPerson', async (req, res) => {
+        const { email } = req.query;
+    //   console.log(email)
+        // Check if email query param exists
+        if (!email) {
+          return res.status(400).send({ message: "Email is required." });
+        }
+      
+        try {
+          // Fetch tasks related to the provided email from the collection
+          const tasks = await allTasksCollection.find({ email: email }).toArray();
+      
+          // Send back the fetched tasks
+          res.status(200).send(tasks);
+        } catch (error) {
+          // Handle potential errors
+          res.status(500).send({ message: "Failed to fetch tasks", error });
+        }
+      });
+      
+
+
+
+
+    app.get('/allTasks', async (req, res) => {
+     
+      const tasks = await allTasksCollection.find().toArray();
 
       res.status(200).send(tasks);
     });
