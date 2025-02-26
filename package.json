@@ -1,20 +1,19 @@
 {
-  "name": "to-do-app-server",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "tas-kit-backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
+    "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
+    "debug": "~2.6.9",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongodb": "^6.13.1",
-    "vercel": "^41.2.0"
+    "express": "5.0.0",
+    "mongoose": "^8.10.1",
+    "morgan": "~1.9.1",
+    "nodemon": "^3.1.9"
   }
 }
